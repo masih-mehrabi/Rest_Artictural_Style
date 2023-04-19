@@ -39,7 +39,6 @@ public class PersonService {
 	public List<Person> getAllPersons(PersonSortingOptions sortingOptions) {
 		
 		
-		// TODO Part 3: Add sorting here
 		List<Person> sortedPersons = new ArrayList<>(this.persons);
 		Comparator<Person> comparator;
 		switch (sortingOptions.getSortField()) {

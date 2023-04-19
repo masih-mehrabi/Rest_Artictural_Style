@@ -7,7 +7,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.core.ParameterizedTypeReference;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -27,7 +26,6 @@ public class PersonController {
 	}
 
 	public void addPerson(Person person, Consumer<List<Person>> personsConsumer) {
-		// TODO Part 2: Make an http post request to the server
 		
 			webClient.post().uri("persons")
 					.bodyValue(person)
@@ -38,12 +36,9 @@ public class PersonController {
 						persons.add(newPerson);
 						personsConsumer.accept(persons);
 					});
-	
-		
 	}
 
 	public void updatePerson(Person person, Consumer<List<Person>> personsConsumer) {
-		// TODO Part 2: Make an http put request to the server
 		webClient.put()
 				.uri("persons/" + person.getId())
 				.bodyValue(person)
@@ -53,12 +48,10 @@ public class PersonController {
 				.subscribe(newPersons -> {
 			persons.replaceAll(oldPersons -> oldPersons.getId().equals(newPersons.getId()) ? newPersons : oldPersons);
 			personsConsumer.accept(persons);
-			
 		});
 	}
 
 	public void deletePerson(Person person, Consumer<List<Person>> personsConsumer) {
-		// TODO Part 2: Make an http delete request to the server
 		webClient.delete().uri("persons/" + person.getId()).retrieve().toBodilessEntity().onErrorStop().subscribe(v-> {
 			persons.remove(person);
 			personsConsumer.accept(persons);
@@ -66,7 +59,6 @@ public class PersonController {
 	}
 
 	public void getAllPersons(PersonSortingOptions sortingOptions, Consumer<List<Person>> personsConsumer) {
-		// TODO Part 2: Make an https get request to the server
 		webClient.get()
 				.uri(uriBuilder -> uriBuilder
 						                   .path("persons")
